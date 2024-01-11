@@ -8,3 +8,16 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+
+###> PhpStorm ###
+.idea
+###< PhpStorm ###
+
+###> CSFixer ###
+tools
+.php-cs-fixer.cache
+###< CSFixer ###
+
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###

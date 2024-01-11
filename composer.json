@@ -12,9 +12,9 @@
         "symfony/flex": "^2",
         "symfony/framework-bundle": "7.0.*",
         "symfony/runtime": "7.0.*",
+        "symfony/serializer": "7.0.*",
+        "symfony/uid": "7.0.*",
         "symfony/yaml": "7.0.*"
-    },
-    "require-dev": {
     },
     "config": {
         "allow-plugins": {
@@ -54,7 +54,10 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "cs-fixer": "tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php",
+        "cs-fixer-check": "tools/php-cs-fixer/vendor/bin/php-cs-fixer check --config=.php-cs-fixer.php --diff",
+        "php-stan": "vendor/bin/phpstan analyse src"
     },
     "conflict": {
         "symfony/symfony": "*"
@@ -64,5 +67,8 @@
             "allow-contrib": false,
             "require": "7.0.*"
         }
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.10"
     }
 }
