@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Product;
+namespace App\Domain\Category;
 
-use App\Domain\Category\Category;
 use App\Domain\Core\TimestampableTrait;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Uid\Uuid;
 
-#[Groups('product_detail')]
-class Product
+#[Groups(['category_detail'])]
+class Category
 {
     use TimestampableTrait;
 
+    #[Groups(['category_link'])]
     private Uuid $id;
 
     public function __construct(
         private string $title,
         private string $description,
         private string $slug,
-        private Category $category,
-        private ProductStatus $status = ProductStatus::NEW,
+        private int $level,
+        private ?self $parent = null,
     ) {
         $this->id = Uuid::v4();
         $this->createdAt = new \DateTime();
@@ -35,8 +35,8 @@ class Product
             title: $data['title'] ?? '',
             description: $data['description'] ?? '',
             slug: $data['slug'] ?? '',
-            category: $data['category'],
-            status: $data['status'] ? ProductStatus::from($data['status']) : ProductStatus::NEW
+            level: $data['level'],
+            parent: $data['parent'] ?? null
         );
 
         $self->id = $data['id'] ? Uuid::fromString($data['id']) : Uuid::v4();
@@ -64,13 +64,13 @@ class Product
         return $this->slug;
     }
 
-    public function getStatus(): ProductStatus
+    public function getLevel(): int
     {
-        return $this->status;
+        return $this->level;
     }
 
-    public function getCategory(): Category
+    public function getParent(): ?self
     {
-        return $this->category;
+        return $this->parent;
     }
 }
