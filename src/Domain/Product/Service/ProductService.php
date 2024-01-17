@@ -20,4 +20,9 @@ class ProductService
     {
         return $this->productRepository->findAll();
     }
+
+    public function findById(string $id): ?Product
+    {
+        return $this->productRepository->findOneBy(['id' => $id]);
+    }
 }

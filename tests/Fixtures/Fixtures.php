@@ -58,7 +58,17 @@ class Fixtures extends Fixture
             'category' => $this->categories[FixtureIds::CATEGORY_APPAREL],
         ]);
 
+        $this->products[FixtureIds::PRODUCT_2] = Product::createFixture([
+            'id' => FixtureIds::PRODUCT_2,
+            'title' => 'The Clash T-shirt',
+            'description' => 'The Clash t-shirt short sleeves',
+            'slug' => 'the-clash-t-short-sleeves',
+            'status' => 'new',
+            'category' => $this->categories[FixtureIds::CATEGORY_APPAREL],
+        ]);
+
         $manager->persist($this->products[FixtureIds::PRODUCT_1]);
+        $manager->persist($this->products[FixtureIds::PRODUCT_2]);
 
         $manager->flush();
     }
