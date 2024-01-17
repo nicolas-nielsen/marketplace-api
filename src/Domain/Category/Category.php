@@ -13,7 +13,7 @@ class Category
 {
     use TimestampableTrait;
 
-    #[Groups(['category_link'])]
+    #[Groups(['subressource_link'])]
     private Uuid $id;
 
     public function __construct(

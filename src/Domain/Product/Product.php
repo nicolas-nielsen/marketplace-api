@@ -14,6 +14,7 @@ class Product
 {
     use TimestampableTrait;
 
+    #[Groups(['subressource_link'])]
     private Uuid $id;
 
     public function __construct(
