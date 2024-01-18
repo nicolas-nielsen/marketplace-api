@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Application\Controller;
 
-use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as SymfonyController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Service\Attribute\Required;
 
 abstract class AbstractController extends SymfonyController
@@ -26,8 +26,8 @@ abstract class AbstractController extends SymfonyController
     }
 
     #[Required]
-    public function setMainRequest(ContainerInterface $container): void
+    public function setMainRequest(RequestStack $requestStack): void
     {
-        $this->mainRequest = $container->get('request_stack')->getMainRequest();
+        $this->mainRequest = $requestStack->getMainRequest() ?? new Request();
     }
 }
