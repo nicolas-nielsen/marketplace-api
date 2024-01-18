@@ -17,6 +17,7 @@
         "symfony/dotenv": "7.0.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "7.0.*",
+        "symfony/http-client": "7.0.*",
         "symfony/property-access": "7.0.*",
         "symfony/property-info": "7.0.*",
         "symfony/runtime": "7.0.*",
@@ -66,10 +67,10 @@
         "install-cs-fixer": "mkdir -p tools/php-cs-fixer && composer require --working-dir=tools/php-cs-fixer friendsofphp/php-cs-fixer",
         "cs-fixer": "tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php",
         "cs-fixer-check": "tools/php-cs-fixer/vendor/bin/php-cs-fixer check --config=.php-cs-fixer.php --diff",
-        "php-stan": "vendor/bin/phpstan analyse src",
+        "phpstan": "vendor/bin/phpstan analyse src",
         "quality-check": [
             "@composer cs-fixer-check",
-            "@composer php-stan"
+            "@composer phpstan"
         ]
     },
     "conflict": {
@@ -87,6 +88,7 @@
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "7.0.*",
         "symfony/css-selector": "7.0.*",
-        "symfony/phpunit-bridge": "^7.0"
+        "symfony/phpunit-bridge": "^7.0",
+        "ext-http": "*"
     }
 }

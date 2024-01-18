@@ -6,6 +6,8 @@ namespace App\Tests\Fixtures;
 
 class FixtureIds
 {
+    public const NOT_FOUND_RESOURCE = 'acad4fd5-9114-42cf-a7c5-40f8aa36fda3';
+
     public const CATEGORY_ROOT = '89186d4c-533e-4579-8a10-31c7591d33bb';
     public const CATEGORY_APPAREL = '4240b0cf-687d-4edd-96fb-54e6bac901ef';
 
