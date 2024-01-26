@@ -16,6 +16,8 @@ class GetProductActionTest extends ApiTestCase
 
     public function testInvoke(): void
     {
+        $this->authenticatedAs(FixtureIds::USER_1);
+
         $this->response = $this->getClient()->request(
             Request::METHOD_GET,
             self::RESOURCE_URI.FixtureIds::PRODUCT_1
@@ -30,13 +32,15 @@ class GetProductActionTest extends ApiTestCase
             'slug' => 'atmosphere-hoodie',
             'category' => [],
             'status' => ProductStatus::NEW->value,
-            'createdAt' => '2024-01-17T14:25:13+00:00',
-            'updatedAt' => '2024-01-17T14:25:13+00:00',
+            'createdAt' => '2024-01-01T10:00:00+00:00',
+            'updatedAt' => '2024-01-01T10:00:00+00:00',
         ]);
     }
 
     public function testNotValidId(): void
     {
+        $this->authenticatedAs(FixtureIds::USER_1);
+
         $this->response = $this->getClient()->request(
             Request::METHOD_GET,
             self::RESOURCE_URI.'fakeId'
@@ -47,11 +51,23 @@ class GetProductActionTest extends ApiTestCase
 
     public function testProductNotFound(): void
     {
+        $this->authenticatedAs(FixtureIds::USER_1);
+
         $this->response = $this->getClient()->request(
             Request::METHOD_GET,
             self::RESOURCE_URI.FixtureIds::NOT_FOUND_RESOURCE
         );
 
         $this->responseCodeIs(Response::HTTP_NOT_FOUND);
+    }
+
+    public function testUnauthorized(): void
+    {
+        $this->response = $this->getClient()->request(
+            Request::METHOD_GET,
+            self::RESOURCE_URI.FixtureIds::PRODUCT_1
+        );
+
+        $this->responseCodeIs(Response::HTTP_UNAUTHORIZED);
     }
 }

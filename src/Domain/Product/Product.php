@@ -33,13 +33,15 @@ class Product
     public static function createFixture(array $data): self
     {
         $self = new self(
-            title: $data['title'] ?? '',
-            description: $data['description'] ?? '',
-            slug: $data['slug'] ?? '',
+            title: $data['title'],
+            description: $data['description'],
+            slug: $data['slug'],
             category: $data['category'],
             status: $data['status'] ? ProductStatus::from($data['status']) : ProductStatus::NEW
         );
 
+        $self->createdAt = $data['createdAt'] ?? $self->createdAt;
+        $self->updatedAt = $data['updatedAt'] ?? $self->updatedAt;
         $self->id = $data['id'] ? Uuid::fromString($data['id']) : Uuid::v4();
 
         return $self;

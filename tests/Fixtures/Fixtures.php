@@ -6,6 +6,7 @@ namespace App\Tests\Fixtures;
 
 use App\Domain\Category\Category;
 use App\Domain\Product\Product;
+use App\Domain\User\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -17,10 +18,14 @@ class Fixtures extends Fixture
     /** @var Product[] */
     private array $products = [];
 
+    /** @var User[] */
+    private array $users = [];
+
     public function load(ObjectManager $manager): void
     {
         $this->loadCategories($manager);
         $this->loadProducts($manager);
+        $this->loadUsers($manager);
     }
 
     private function loadCategories(ObjectManager $manager): void
@@ -56,6 +61,8 @@ class Fixtures extends Fixture
             'slug' => 'atmosphere-hoodie',
             'status' => 'new',
             'category' => $this->categories[FixtureIds::CATEGORY_APPAREL],
+            'createdAt' => new \DateTime('2024-01-01 10:00:00'),
+            'updatedAt' => new \DateTime('2024-01-01 10:00:00'),
         ]);
 
         $this->products[FixtureIds::PRODUCT_2] = Product::createFixture([
@@ -65,10 +72,31 @@ class Fixtures extends Fixture
             'slug' => 'the-clash-t-short-sleeves',
             'status' => 'new',
             'category' => $this->categories[FixtureIds::CATEGORY_APPAREL],
+            'createdAt' => new \DateTime('2024-01-01 10:00:00'),
+            'updatedAt' => new \DateTime('2024-01-01 10:00:00'),
         ]);
 
         $manager->persist($this->products[FixtureIds::PRODUCT_1]);
         $manager->persist($this->products[FixtureIds::PRODUCT_2]);
+
+        $manager->flush();
+    }
+
+    private function loadUsers(ObjectManager $manager): void
+    {
+        $this->users[FixtureIds::USER_1] = User::createFixture([
+            'id' => FixtureIds::USER_1,
+            'firstname' => 'John',
+            'lastname' => 'Doe',
+            'email' => 'john.doe@test.com',
+            'password' => 'tictactoe',
+            'createdAt' => new \DateTime('2024-01-01 10:00:00'),
+            'updatedAt' => new \DateTime('2024-01-01 10:00:00'),
+        ]);
+
+        foreach ($this->users as $user) {
+            $manager->persist($user);
+        }
 
         $manager->flush();
     }
