@@ -27,6 +27,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Infrastructure/ORM/Category/Mapping'
                 prefix: 'App\Domain\Category'
                 alias: Category
+            User:
+                type: xml
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Infrastructure/ORM/User/Mapping'
+                prefix: 'App\Domain\User'
+                alias: User
 
 when@test:
     doctrine:

@@ -1,3 +1,6 @@
 controllers:
     resource: ../src/Application/Controller/
     type: attribute
+
+login:
+    path: /auth/login

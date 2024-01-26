@@ -11,6 +11,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^2.17",
         "gedmo/doctrine-extensions": "^3.14",
+        "lexik/jwt-authentication-bundle": "^2.20",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.25",
         "symfony/console": "7.0.*",
@@ -21,6 +22,7 @@
         "symfony/property-access": "7.0.*",
         "symfony/property-info": "7.0.*",
         "symfony/runtime": "7.0.*",
+        "symfony/security-bundle": "7.0.*",
         "symfony/serializer": "7.0.*",
         "symfony/uid": "7.0.*",
         "symfony/yaml": "7.0.*"
@@ -67,10 +69,12 @@
         "install-cs-fixer": "mkdir -p tools/php-cs-fixer && composer require --working-dir=tools/php-cs-fixer friendsofphp/php-cs-fixer",
         "cs-fixer": "tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php",
         "cs-fixer-check": "tools/php-cs-fixer/vendor/bin/php-cs-fixer check --config=.php-cs-fixer.php --diff",
+        "deptrac": "vendor/bin/deptrac",
         "phpstan": "vendor/bin/phpstan analyse src",
         "quality-check": [
             "@composer cs-fixer-check",
-            "@composer phpstan"
+            "@composer phpstan",
+            "@composer deptrac"
         ]
     },
     "conflict": {
@@ -86,9 +90,11 @@
         "doctrine/doctrine-fixtures-bundle": "^3.5",
         "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^9.5",
+        "qossmic/deptrac-shim": "^1.0",
         "symfony/browser-kit": "7.0.*",
         "symfony/css-selector": "7.0.*",
         "symfony/phpunit-bridge": "^7.0",
-        "ext-http": "*"
+        "symfony/stopwatch": "7.0.*",
+        "symfony/web-profiler-bundle": "7.0.*"
     }
 }

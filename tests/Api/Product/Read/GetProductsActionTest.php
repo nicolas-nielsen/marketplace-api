@@ -14,9 +14,11 @@ class GetProductsActionTest extends ApiTestCase
 {
     public function testInvoke(): void
     {
+        $this->authenticatedAs(FixtureIds::USER_1);
+
         $this->response = $this->getClient()->request(
             Request::METHOD_GET,
-            '/products/'
+            '/products'
         );
 
         $this->responseIsJson();
@@ -29,8 +31,8 @@ class GetProductsActionTest extends ApiTestCase
                 'slug' => 'atmosphere-hoodie',
                 'category' => [],
                 'status' => ProductStatus::NEW->value,
-                'createdAt' => '2024-01-17T14:25:13+00:00',
-                'updatedAt' => '2024-01-17T14:25:13+00:00',
+                'createdAt' => '2024-01-01T10:00:00+00:00',
+                'updatedAt' => '2024-01-01T10:00:00+00:00',
             ],
             1 => [
                 'id' => FixtureIds::PRODUCT_2,
@@ -39,9 +41,19 @@ class GetProductsActionTest extends ApiTestCase
                 'slug' => 'the-clash-t-short-sleeves',
                 'category' => [],
                 'status' => ProductStatus::NEW->value,
-                'createdAt' => '2024-01-17T14:25:13+00:00',
-                'updatedAt' => '2024-01-17T14:25:13+00:00',
+                'createdAt' => '2024-01-01T10:00:00+00:00',
+                'updatedAt' => '2024-01-01T10:00:00+00:00',
             ],
         ]);
+    }
+
+    public function testUnauthorized(): void
+    {
+        $this->response = $this->getClient()->request(
+            Request::METHOD_GET,
+            '/products'
+        );
+
+        $this->responseCodeIs(Response::HTTP_UNAUTHORIZED);
     }
 }
