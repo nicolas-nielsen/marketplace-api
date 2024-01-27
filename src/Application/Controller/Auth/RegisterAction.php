@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Application\Controller\Auth;
 
 use App\Application\Controller\AbstractController;
+use App\Application\Payload\Auth\AuthRegisterPayload;
 use App\Domain\User\Service\UserService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,13 +19,15 @@ class RegisterAction extends AbstractController
         Request $request,
         UserService $userService
     ): Response {
-        $body = json_decode($request->getContent(), true, 512, \JSON_THROW_ON_ERROR);
+        $payload = $this->createPayloadFromRequestContent($request->getContent(), AuthRegisterPayload::class);
 
-        if ($userService->userExists($body['email'])) {
-            throw new BadRequestHttpException(sprintf('Email %s is already registered', $body['email']));
+        $createUserDto = $payload->buildCreateUserDto();
+
+        if ($userService->userExists($createUserDto->getEmail())) {
+            throw new BadRequestHttpException(sprintf('Email %s is already registered', $createUserDto->getEmail()));
         }
 
-        $user = $userService->registerUser($body);
+        $user = $userService->registerUser($createUserDto);
 
         return $this->json($user, 201, [], ['groups' => 'user_details']);
     }

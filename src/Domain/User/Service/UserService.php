@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Service;
 
+use App\Domain\User\Dto\CreateUserDto;
 use App\Domain\User\Repository\UserRepositoryInterface;
 use App\Domain\User\User;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -26,14 +27,13 @@ class UserService
         return (bool) $this->userRepository->findOneBy(['email' => $email]);
     }
 
-    /** @param string[] $data */
-    public function registerUser(array $data): User
+    public function registerUser(CreateUserDto $authRegisterDto): User
     {
         $user = new User(
-            $data['firstname'],
-            $data['lastname'],
-            $data['email'],
-            $data['password']
+            $authRegisterDto->getFirstname(),
+            $authRegisterDto->getLastname(),
+            $authRegisterDto->getEmail(),
+            $authRegisterDto->getPassword()
         );
 
         $user->applyHashedPassword($this->passwordHasher->hashPassword($user, $user->getPassword()));
