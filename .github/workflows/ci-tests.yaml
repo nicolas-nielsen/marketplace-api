@@ -43,12 +43,16 @@ jobs:
               run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 #            - name: Start docker compose
 #              run: docker-compose up -d
-            - name: create database
+            - name: Create database
               run: symfony console doctrine:database:create
-            - name: run migrations
+            - name: Run migrations
               run: symfony console doctrine:migrations:migrate -n
             - name: load fixtures
               run: symfony console doctrine:fixtures:load -n
+            - name: Generate JWT keys
+              run: symfony console lexik:jwt:generate-keypair
+            - name: Start Symfony server
+              run: symfony serve:start -d
             - name: Execute tests
               run: php bin/phpunit
 
