@@ -48,7 +48,7 @@ jobs:
             - name: run migrations
               run: symfony console doctrine:migrations:migrate -n
             - name: load fixtures
-              run: symfony console doctrine:fixtures:load
+              run: symfony console doctrine:fixtures:load -n
             - name: Execute tests
               run: php bin/phpunit
 
