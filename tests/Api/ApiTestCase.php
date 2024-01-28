@@ -13,7 +13,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 abstract class ApiTestCase extends KernelTestCase
 {
-    protected const BASE_URI = 'https://localhost:8000';
+    protected const BASE_URI = 'http://localhost:8000';
 
     private HttpClientInterface $client;
     protected ResponseInterface $response;
