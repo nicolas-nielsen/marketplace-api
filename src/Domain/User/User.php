@@ -14,7 +14,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use TimestampableTrait;
 
-    #[Groups(['user_details_admin'])]
+    #[Groups(['user_details'])]
     private Uuid $id;
 
     /** @var string[] */

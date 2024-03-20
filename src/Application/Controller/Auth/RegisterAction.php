@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class RegisterAction extends AbstractController
 {
-    #[Route(path: '/register', name: 'app.register', methods: ['POST'])]
+    #[Route(path: '/auth/register', name: 'app.register', methods: ['POST'])]
     public function __invoke(
         Request $request,
         UserService $userService
