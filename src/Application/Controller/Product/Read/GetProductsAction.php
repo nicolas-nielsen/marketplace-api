@@ -19,8 +19,10 @@ class GetProductsAction extends AbstractController
     ): Response {
         $groups = $this->getSerializationGroups();
 
-        $products = $productService->getAll();
+        $paginationParameters = $this->getPaginationParameters();
 
-        return $this->json($products, 200, [], ['groups' => array_merge(['product_detail'], $groups)]);
+        $products = $productService->getPaginated($paginationParameters);
+
+        return $this->json($products, 200, [], ['groups' => array_merge(['product_detail', 'pagination'], $groups)]);
     }
 }

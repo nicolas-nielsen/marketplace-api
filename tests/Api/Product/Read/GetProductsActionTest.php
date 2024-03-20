@@ -24,25 +24,32 @@ class GetProductsActionTest extends ApiTestCase
         $this->responseIsJson();
         $this->responseCodeIs(Response::HTTP_OK);
         $this->responseContainsJson([
-            0 => [
-                'id' => FixtureIds::PRODUCT_1,
-                'title' => 'Atmosphere Hoodie',
-                'description' => 'Rhymesayers atmosphere hoodie blue',
-                'slug' => 'atmosphere-hoodie',
-                'category' => [],
-                'status' => ProductStatus::NEW->value,
-                'createdAt' => '2024-01-01T10:00:00+00:00',
-                'updatedAt' => '2024-01-01T10:00:00+00:00',
+            'items' => [
+                0 => [
+                    'id' => FixtureIds::PRODUCT_1,
+                    'title' => 'Atmosphere Hoodie',
+                    'description' => 'Rhymesayers atmosphere hoodie blue',
+                    'slug' => 'atmosphere-hoodie',
+                    'category' => [],
+                    'status' => ProductStatus::NEW->value,
+                    'createdAt' => '2024-01-01T10:00:00+00:00',
+                    'updatedAt' => '2024-01-01T10:00:00+00:00',
+                ],
+                1 => [
+                    'id' => FixtureIds::PRODUCT_2,
+                    'title' => 'The Clash T-shirt',
+                    'description' => 'The Clash t-shirt short sleeves',
+                    'slug' => 'the-clash-t-short-sleeves',
+                    'category' => [],
+                    'status' => ProductStatus::NEW->value,
+                    'createdAt' => '2024-01-01T10:00:00+00:00',
+                    'updatedAt' => '2024-01-01T10:00:00+00:00',
+                ],
             ],
-            1 => [
-                'id' => FixtureIds::PRODUCT_2,
-                'title' => 'The Clash T-shirt',
-                'description' => 'The Clash t-shirt short sleeves',
-                'slug' => 'the-clash-t-short-sleeves',
-                'category' => [],
-                'status' => ProductStatus::NEW->value,
-                'createdAt' => '2024-01-01T10:00:00+00:00',
-                'updatedAt' => '2024-01-01T10:00:00+00:00',
+            'total' => 2,
+            'parameters' => [
+                'page' => 1,
+                'limit' => 10,
             ],
         ]);
     }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Application\Controller;
 
 use App\Application\Payload\Exception\PayloadValidationException;
+use App\Domain\Core\PaginationParameters;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as SymfonyController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -64,5 +65,10 @@ abstract class AbstractController extends SymfonyController
         }
 
         return $payload;
+    }
+
+    protected function getPaginationParameters(): PaginationParameters
+    {
+        return new PaginationParameters($this->mainRequest->query->getInt('page', 1), $this->mainRequest->query->getInt('limit', 10));
     }
 }
