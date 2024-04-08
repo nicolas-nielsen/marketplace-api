@@ -8,11 +8,38 @@ jobs:
     # Install php packages and run tests
     docker:
       - image: cimg/php:8.2.7-node
+        environment:
+            DATABASE_URL: postgresql://mp_api:mp_api@localhost/marketplace
+      - image: cimg/postgres:14.0
+        environment:
+          POSTGRES_USER: 'mp_api'
+          POSTGRES_PASSWORD: 'mp-api'
     steps:
       - checkout
       - php/install-packages
       - run:
-          name: run tests
+          name: install symfony cli
+          command: curl -sS https://get.symfony.com/cli/installer | bash
+      - run:
+          name: move symfony cli globally
+          command: sudo mv /home/circleci/.symfony5/bin/symfony /usr/local/bin/symfony
+      - run:
+          name: Create database
+          command: symfony console doctrine:database:create
+      - run:
+          name: Run migrations
+          command: symfony console doctrine:migrations:migrate -n
+      - run:
+          name: load fixtures
+          command: symfony console doctrine:fixtures:load -n
+      - run:
+          name: Generate JWT keys
+          command: symfony console lexik:jwt:generate-keypair
+      - run:
+          name: Start Symfony server
+          command: symfony serve:start -d
+      - run:
+          name: run tests`
           command: ./vendor/bin/phpunit
   deploy:
     # This is an example deploy job, not actually used by the workflow
